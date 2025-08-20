@@ -15,8 +15,49 @@
 </head>
 
 <body class="bg-gray-300 slab">
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
+    <div class="container">
+        <h1 class="heading styler">Norwegian NIN Generator</h1>
+
+        <!-- Date range input section -->
+        <div class="input-section">
+            <div class="input-group">
+                <label for="start-date">Start Date:</label>
+                <input type="date" id="start-date" class="input-field">
+            </div>
+            <div class="input-group">
+                <label for="end-date">End Date:</label>
+                <input type="date" id="end-date" class="input-field">
+            </div>
+        </div>
+
+        <!-- NIN display section -->
+        <div class="nin-display-wrapper">
+            <div id="nin-display" class="nin-box">
+                000000 00000
+            </div>
+            <!-- Copy success message, hidden by default -->
+            <div id="copy-message" class="copy-message">
+                Copied!
+            </div>
+        </div>
+        
+        <!-- Action buttons -->
+        <div class="button-section">
+            <button id="generate-button" class="button-primary">
+                Generate New NIN
+            </button>
+            <button id="copy-button" class="button-secondary">
+                Copy
+            </button>
+        </div>
+
+        <p class="info-text">
+            Created by [Pritom Purkayasta] <br />
+            <a href="https://www.linkedin.com/in/purkayasta/" target="_blank">LinkedIn</a> |
+            <a href="https://github.com/purkayasta" target="_blank">GitHub</a>
+        </p>
+    </div>
+    <script src="/src/main.js"></script>
 </body>
 
 </html>

@@ -4,9 +4,7 @@ This is a simple, browser-based tool that generates a valid Norwegian National I
 
 🚀 Live Demo
 
-You can view a live version of this project on GitHub Pages:
-
-https://[purkayasta].github.io/[nin]
+You can view a live version of this project on GitHub Pages: https://purkayasta.github.io/nin/
 
 ✨ Features
 
@@ -19,9 +17,6 @@ https://[purkayasta].github.io/[nin]
     Responsive Design: The interface is clean and works well on both desktop and mobile devices.
 
 💻 Technologies Used
-
-    HTML: For the application structure.
-
-    CSS: For styling and layout.
-
-    Vanilla JavaScript: For all the core logic, including date handling, checksum calculation, and clipboard functionality.
+- Bun
+- Vanila JS
+- Plain HTML
