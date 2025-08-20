@@ -4,8 +4,11 @@ const copyButton = document.getElementById('copy-button');
 const copyMessage = document.getElementById('copy-message');
 const startDateInput = document.getElementById('start-date');
 const endDateInput = document.getElementById('end-date');
+const body = document.body;
+const themeSwitch = document.getElementById('theme-switch');
 const pad = (num) => num.toString().padStart(2, '0');
 
+// Methods
 const calculateChecksums = (date, serial) => {
     const weights1 = [3, 7, 6, 1, 8, 9, 4, 5, 2, 1];
     const weights2 = [5, 4, 3, 2, 7, 6, 5, 4, 3, 2, 1];
@@ -73,18 +76,41 @@ const copyToClipboard = async () => {
     }
 };
 
+const applyTheme = (isDark) => {
+    if (isDark) {
+        body.classList.remove('light-theme');
+        body.classList.add('dark-theme');
+    } else {
+        body.classList.remove('dark-theme');
+        body.classList.add('light-theme');
+    }
+};
+
+
+// Event Listeners
 copyButton.addEventListener('click', copyToClipboard);
 
-
-// Event listeners for the buttons
 generateButton.addEventListener('click', () => {
     const nin = generateNIN();
     ninDisplay.textContent = nin;
 });
 
-
-// Generate an initial NIN and set default dates when the page loads
 document.addEventListener('DOMContentLoaded', () => {
+
+    const initialNin = generateNIN();
+    ninDisplay.textContent = initialNin;
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        const isDark = savedTheme === 'dark';
+        themeSwitch.checked = isDark;
+        applyTheme(isDark);
+    } else {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        themeSwitch.checked = prefersDark;
+        applyTheme(prefersDark);
+    }
+
     // Set default start date (1971-12-16)
     startDateInput.value = '1971-12-16';
 
@@ -96,7 +122,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Set max date for both inputs to today
     startDateInput.max = todayFormatted;
     endDateInput.max = todayFormatted;
+});
 
-    const initialNin = generateNIN();
-    ninDisplay.textContent = initialNin;
+themeSwitch.addEventListener('change', () => {
+    const isDark = themeSwitch.checked;
+    applyTheme(isDark);
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
 });

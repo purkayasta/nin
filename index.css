@@ -1,24 +1,82 @@
+/* Define CSS variables for light and dark themes */
+:root {
+    --bg-color-light: #f3f4f6;
+    --container-bg-light: #ffffff;
+    --text-color-light: #374151;
+    --heading-color-light: #1f2937;
+    --input-bg-light: #e5e7eb;
+    --nin-box-bg-light: #e5e7eb;
+    --nin-box-text-light: #4b5563;
+    --copy-msg-light: #16a34a;
+    --button-primary-bg-light: #2563eb;
+    --button-primary-hover-light: #1d4ed8;
+    --button-primary-text-light: #ffffff;
+    --button-secondary-bg-light: #d1d5db;
+    --button-secondary-hover-light: #9ca3af;
+    --button-secondary-text-light: #1f2937;
+    --input-focus-border-light: #3b82f6;
+    --input-focus-shadow-light: rgba(59, 130, 246, 0.5);
+    --info-text-color-light: #6b7280;
+    --link-color-light: #2563eb;
+
+    --bg-color-dark: #1f2937;
+    --container-bg-dark: #374151;
+    --text-color-dark: #f3f4f6;
+    --heading-color-dark: #ffffff;
+    --input-bg-dark: #4b5563;
+    --nin-box-bg-dark: #4b5563;
+    --nin-box-text-dark: #f3f4f6;
+    --copy-msg-dark: #86efac;
+    --button-primary-bg-dark: #60a5fa;
+    --button-primary-hover-dark: #3b82f6;
+    --button-primary-text-dark: #1f2937;
+    --button-secondary-bg-dark: #6b7280;
+    --button-secondary-hover-dark: #9ca3af;
+    --button-secondary-text-dark: #f3f4f6;
+    --input-focus-border-dark: #60a5fa;
+    --input-focus-shadow-dark: rgba(96, 165, 250, 0.5);
+    --info-text-color-dark: #9ca3af;
+    --link-color-dark: #60a5fa;
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    background-color: #f3f4f6;
+    background-color: var(--bg-color-light);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
     padding: 1rem;
-    color: #374151;
+    color: var(--text-color-light);
     /* Default text color */
 }
 
+/* Global variable usage based on theme class on the body */
+body.light-theme {
+    background-color: var(--bg-color-light);
+    color: var(--text-color-light);
+}
+
+body.dark-theme {
+    background-color: var(--bg-color-dark);
+    color: var(--text-color-dark);
+}
+
 .container {
-    background-color: #ffffff;
+    background-color: var(--container-bg-light);
     padding: 2rem 1.5rem;
     border-radius: 1.5rem;
-    box-shadow: 20px 10px 15px 30px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     max-width: 40rem;
     width: 100%;
     text-align: center;
+    position: relative;
+    /* Added for the toggle switch positioning */
+}
+
+body.dark-theme .container {
+    background-color: var(--container-bg-dark);
 }
 
 /* --- Typography --- */
@@ -26,17 +84,39 @@ body {
 .heading {
     font-size: 2rem;
     font-weight: 800;
-    color: #1f2937;
+    color: var(--heading-color-light);
     margin-bottom: 1.5rem;
+}
+
+body.dark-theme .heading {
+    color: var(--heading-color-dark);
 }
 
 .info-text {
     margin-top: 2rem;
     font-size: 0.875rem;
-    color: #6b7280;
+    color: var(--info-text-color-light);
     max-width: 20rem;
     margin-left: auto;
     margin-right: auto;
+}
+
+body.dark-theme .info-text {
+    color: var(--info-text-color-dark);
+}
+
+.info-text a {
+    color: var(--link-color-light);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+body.dark-theme .info-text a {
+    color: var(--link-color-dark);
+}
+
+.info-text a:hover {
+    text-decoration: underline;
 }
 
 /* --- Input Fields & Date Pickers --- */
@@ -66,22 +146,37 @@ body {
     display: block;
     font-weight: 700;
     margin-bottom: 0.5rem;
-    color: #4b5563;
+    color: var(--text-color-light);
+}
+
+body.dark-theme .input-group label {
+    color: var(--text-color-dark);
 }
 
 .input-field {
-    background-color: #e5e7eb;
+    background-color: var(--input-bg-light);
     padding: 0.75rem;
     border: 1px solid transparent;
     border-radius: 0.5rem;
     width: 100%;
     transition: all 0.2s ease-in-out;
     outline: none;
+    color: var(--nin-box-text-light);
+}
+
+body.dark-theme .input-field {
+    background-color: var(--input-bg-dark);
+    color: var(--nin-box-text-dark);
 }
 
 .input-field:focus {
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+    border-color: var(--input-focus-border-light);
+    box-shadow: 0 0 0 3px var(--input-focus-shadow-light);
+}
+
+body.dark-theme .input-field:focus {
+    border-color: var(--input-focus-border-dark);
+    box-shadow: 0 0 0 3px var(--input-focus-shadow-dark);
 }
 
 /* --- NIN Display --- */
@@ -91,15 +186,20 @@ body {
 }
 
 .nin-box {
-    background-color: #e5e7eb;
+    background-color: var(--nin-box-bg-light);
     padding: 1.5rem;
     border-radius: 1rem;
     font-family: monospace;
     font-size: 2rem;
     font-weight: 700;
-    color: #4b5563;
+    color: var(--nin-box-text-light);
     margin-bottom: 1.5rem;
     transition: all 0.3s ease-in-out;
+}
+
+body.dark-theme .nin-box {
+    background-color: var(--nin-box-bg-dark);
+    color: var(--nin-box-text-dark);
 }
 
 @media (min-width: 768px) {
@@ -119,9 +219,13 @@ body {
     transform: translateX(-50%);
     font-size: 0.875rem;
     font-weight: 600;
-    color: #16a34a;
+    color: var(--copy-msg-light);
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
+}
+
+body.dark-theme .copy-message {
+    color: var(--copy-msg-dark);
 }
 
 /* --- Buttons --- */
@@ -152,25 +256,135 @@ body {
 }
 
 .button-primary {
-    background-color: #2563eb;
-    color: #ffffff;
+    background-color: var(--button-primary-bg-light);
+    color: var(--button-primary-text-light);
+}
+
+body.dark-theme .button-primary {
+    background-color: var(--button-primary-bg-dark);
+    color: var(--button-primary-text-dark);
 }
 
 .button-primary:hover {
-    background-color: #1d4ed8;
+    background-color: var(--button-primary-hover-light);
     transform: translateY(-0.1rem);
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+body.dark-theme .button-primary:hover {
+    background-color: var(--button-primary-hover-dark);
 }
 
 .button-secondary {
-    background-color: #d1d5db;
-    color: #1f2937;
+    background-color: var(--button-secondary-bg-light);
+    color: var(--button-secondary-text-light);
+}
+
+body.dark-theme .button-secondary {
+    background-color: var(--button-secondary-bg-dark);
+    color: var(--button-secondary-text-dark);
 }
 
 .button-secondary:hover {
-    background-color: #9ca3af;
+    background-color: var(--button-secondary-hover-light);
     transform: translateY(-0.1rem);
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+body.dark-theme .button-secondary:hover {
+    background-color: var(--button-secondary-hover-dark);
+}
+
+/* --- Theme Switcher --- */
+.theme-switch-wrapper {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-switch-label {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.theme-switch-label input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+}
+
+input:checked+.slider {
+    background-color: #2196F3;
+}
+
+input:checked+.slider:before {
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.sun-icon {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    color: gold;
+    transition: opacity 0.3s ease;
+}
+
+input:checked+.slider .sun-icon {
+    opacity: 0;
+}
+
+.moon-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    color: #f0f0f0;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+input:checked+.slider .moon-icon {
+    opacity: 1;
 }
 
 .styler {

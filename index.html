@@ -16,6 +16,34 @@
 
 <body class="bg-gray-300 slab">
     <div class="container">
+        <div class="theme-switch-wrapper">
+            <label for="theme-switch" class="theme-switch-label">
+                <input type="checkbox" id="theme-switch">
+                <span class="slider round">
+                    <!-- Sun icon for light mode -->
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <path d="M12 2v2"></path>
+                        <path d="M12 20v2"></path>
+                        <path d="M4.93 4.93l1.41 1.41"></path>
+                        <path d="M17.66 17.66l1.41 1.41"></path>
+                        <path d="M2 12h2"></path>
+                        <path d="M20 12h2"></path>
+                        <path d="M4.93 19.07l1.41-1.41"></path>
+                        <path d="M17.66 6.34l1.41-1.41"></path>
+                    </svg>
+                    <!-- Moon icon for dark mode -->
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </span>
+            </label>
+        </div>
+
         <h1 class="heading styler">Norwegian NIN Generator</h1>
 
         <!-- Date range input section -->
@@ -40,7 +68,7 @@
                 Copied!
             </div>
         </div>
-        
+
         <!-- Action buttons -->
         <div class="button-section">
             <button id="generate-button" class="button-primary">
