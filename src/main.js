@@ -1,0 +1,146 @@
+document.querySelector('#app').innerHTML = `
+    <div class="container">
+        <h1 class="heading styler">Norwegian NIN Generator</h1>
+
+        <!-- Date range input section -->
+        <div class="input-section">
+            <div class="input-group">
+                <label for="start-date">Start Date:</label>
+                <input type="date" id="start-date" class="input-field">
+            </div>
+            <div class="input-group">
+                <label for="end-date">End Date:</label>
+                <input type="date" id="end-date" class="input-field">
+            </div>
+        </div>
+
+        <!-- NIN display section -->
+        <div class="nin-display-wrapper">
+            <div id="nin-display" class="nin-box">
+                000000 00000
+            </div>
+            <!-- Copy success message, hidden by default -->
+            <div id="copy-message" class="copy-message">
+                Copied!
+            </div>
+        </div>
+        
+        <!-- Action buttons -->
+        <div class="button-section">
+            <button id="generate-button" class="button-primary">
+                Generate New NIN
+            </button>
+            <button id="copy-button" class="button-secondary">
+                Copy
+            </button>
+        </div>
+
+        <p class="info-text">
+            Created by [Pritom Purkayasta] <br />
+            <a href="https://www.linkedin.com/in/purkayasta/" target="_blank">LinkedIn</a> |
+            <a href="https://github.com/purkayasta" target="_blank">GitHub</a>
+        </p>
+    </div>
+`
+const ninDisplay = document.getElementById('nin-display');
+const generateButton = document.getElementById('generate-button');
+const copyButton = document.getElementById('copy-button');
+const copyMessage = document.getElementById('copy-message');
+const startDateInput = document.getElementById('start-date');
+const endDateInput = document.getElementById('end-date');
+const pad = (num) => num.toString().padStart(2, '0');
+
+const calculateChecksums = (date, serial) => {
+    const weights1 = [3, 7, 6, 1, 8, 9, 4, 5, 2, 1];
+    const weights2 = [5, 4, 3, 2, 7, 6, 5, 4, 3, 2, 1];
+    const base = date + serial;
+    let sum1 = 0;
+    for (let i = 0; i < 9; i++) {
+        sum1 += parseInt(base.charAt(i)) * weights1[i];
+    }
+    const k1 = (11 - (sum1 % 11)) % 11;
+    if (k1 === 10) return null;
+    const base2 = base + k1.toString();
+    let sum2 = 0;
+    for (let i = 0; i < 10; i++) {
+        sum2 += parseInt(base2.charAt(i)) * weights2[i];
+    }
+    const k2 = (11 - (sum2 % 11)) % 11;
+    if (k2 === 10) return null;
+    return { k1, k2 };
+};
+
+const generateNIN = () => {
+    while (true) {
+        const startDate = new Date(startDateInput.value);
+        const endDate = new Date(endDateInput.value);
+
+        // Generate a random date within the specified range
+        const randomTimestamp = startDate.getTime() + Math.random() * (endDate.getTime() - startDate.getTime());
+        const randomDate = new Date(randomTimestamp);
+
+        // Extract day, month, and year
+        const year = randomDate.getFullYear();
+        const month = randomDate.getMonth() + 1;
+        const day = randomDate.getDate();
+
+        // Format the date as DDMMYY
+        const date = `${pad(day)}${pad(month)}${year.toString().substring(2)}`;
+
+        // Generate a random 3-digit serial number
+        const serial = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+
+        // Calculate the checksums
+        const checksums = calculateChecksums(date, serial);
+
+        if (checksums) {
+            const { k1, k2 } = checksums;
+            // Format the full 11-digit NIN with a space separator
+            const fullNIN = `${date}${serial}${k1}${k2}`;
+            return fullNIN;
+        }
+    }
+};
+
+const copyToClipboard = async () => {
+    try {
+        await navigator.clipboard.writeText(ninDisplay.textContent);
+        // Show the success message
+        copyMessage.style.opacity = '1';
+        setTimeout(() => {
+            copyMessage.style.opacity = '0';
+        }, 1500);
+    } catch (err) {
+        console.error('Failed to copy text: ', err);
+        // Fallback to a message box if copying fails
+        alert('Failed to copy to clipboard. Please copy the number manually.');
+    }
+};
+
+copyButton.addEventListener('click', copyToClipboard);
+
+
+// Event listeners for the buttons
+generateButton.addEventListener('click', () => {
+    const nin = generateNIN();
+    ninDisplay.textContent = nin;
+});
+
+
+// Generate an initial NIN and set default dates when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    // Set default start date (1971-12-16)
+    startDateInput.value = '1971-12-16';
+
+    // Set default end date (today)
+    const today = new Date();
+    const todayFormatted = today.toISOString().split('T')[0];
+    endDateInput.value = todayFormatted;
+
+    // Set max date for both inputs to today
+    startDateInput.max = todayFormatted;
+    endDateInput.max = todayFormatted;
+
+    const initialNin = generateNIN();
+    ninDisplay.textContent = initialNin;
+});

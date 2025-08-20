@@ -1,0 +1,187 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f3f4f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 1rem;
+    color: #374151;
+    /* Default text color */
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 2rem 1.5rem;
+    border-radius: 1.5rem;
+    box-shadow: 20px 10px 15px 30px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    max-width: 40rem;
+    width: 100%;
+    text-align: center;
+}
+
+/* --- Typography --- */
+
+.heading {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #1f2937;
+    margin-bottom: 1.5rem;
+}
+
+.info-text {
+    margin-top: 2rem;
+    font-size: 0.875rem;
+    color: #6b7280;
+    max-width: 20rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --- Input Fields & Date Pickers --- */
+
+.input-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+@media (min-width: 768px) {
+    .input-section {
+        flex-direction: row;
+        gap: 1.5rem;
+    }
+}
+
+.input-group {
+    width: 100%;
+    margin: 10px;
+}
+
+.input-group label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #4b5563;
+}
+
+.input-field {
+    background-color: #e5e7eb;
+    padding: 0.75rem;
+    border: 1px solid transparent;
+    border-radius: 0.5rem;
+    width: 100%;
+    transition: all 0.2s ease-in-out;
+    outline: none;
+}
+
+.input-field:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+}
+
+/* --- NIN Display --- */
+
+.nin-display-wrapper {
+    position: relative;
+}
+
+.nin-box {
+    background-color: #e5e7eb;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    font-family: monospace;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #4b5563;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease-in-out;
+}
+
+@media (min-width: 768px) {
+    .nin-box {
+        font-size: 2.25rem;
+    }
+}
+
+.nin-box:hover {
+    transform: scale(1.02);
+}
+
+.copy-message {
+    position: absolute;
+    bottom: -1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #16a34a;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* --- Buttons --- */
+
+.button-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    .button-section {
+        flex-direction: row;
+        gap: 1.5rem;
+    }
+}
+
+.button-primary,
+.button-secondary {
+    font-weight: 700;
+    padding: 0.75rem 2rem;
+    border-radius: 9999px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease-in-out;
+    border: none;
+    cursor: pointer;
+}
+
+.button-primary {
+    background-color: #2563eb;
+    color: #ffffff;
+}
+
+.button-primary:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-0.1rem);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.button-secondary {
+    background-color: #d1d5db;
+    color: #1f2937;
+}
+
+.button-secondary:hover {
+    background-color: #9ca3af;
+    transform: translateY(-0.1rem);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.styler {
+    font-family: "Qwitcher Grypen", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 70px;
+}
+
+.slab {
+    font-family: "Roboto Slab", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
