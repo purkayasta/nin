@@ -8,7 +8,6 @@ const body = document.body;
 const themeSwitch = document.getElementById('theme-switch');
 const pad = (num) => num.toString().padStart(2, '0');
 
-// Methods
 const calculateChecksums = (date, serial) => {
     const weights1 = [3, 7, 6, 1, 8, 9, 4, 5, 2, 1];
     const weights2 = [5, 4, 3, 2, 7, 6, 5, 4, 3, 2, 1];
@@ -28,6 +27,23 @@ const calculateChecksums = (date, serial) => {
     if (k2 === 10) return null;
     return { k1, k2 };
 };
+
+
+const copyToClipboard = async () => {
+    try {
+        await navigator.clipboard.writeText(ninDisplay.textContent);
+        // Show the success message
+        copyMessage.style.opacity = '1';
+        setTimeout(() => {
+            copyMessage.style.opacity = '0';
+        }, 1500);
+    } catch (err) {
+        console.error('Failed to copy text: ', err);
+        // Fallback to a message box if copying fails
+        alert('Failed to copy to clipboard. Please copy the number manually.');
+    }
+};
+
 
 const generateNIN = () => {
     while (true) {
@@ -61,33 +77,7 @@ const generateNIN = () => {
     }
 };
 
-const copyToClipboard = async () => {
-    try {
-        await navigator.clipboard.writeText(ninDisplay.textContent);
-        // Show the success message
-        copyMessage.style.opacity = '1';
-        setTimeout(() => {
-            copyMessage.style.opacity = '0';
-        }, 1500);
-    } catch (err) {
-        console.error('Failed to copy text: ', err);
-        // Fallback to a message box if copying fails
-        alert('Failed to copy to clipboard. Please copy the number manually.');
-    }
-};
 
-const applyTheme = (isDark) => {
-    if (isDark) {
-        body.classList.remove('light-theme');
-        body.classList.add('dark-theme');
-    } else {
-        body.classList.remove('dark-theme');
-        body.classList.add('light-theme');
-    }
-};
-
-
-// Event Listeners
 copyButton.addEventListener('click', copyToClipboard);
 
 generateButton.addEventListener('click', () => {
@@ -96,6 +86,18 @@ generateButton.addEventListener('click', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
+
+    // Set default start date (1971-12-16)
+    startDateInput.value = '1971-12-16';
+
+    // Set default end date (today)
+    const today = new Date();
+    const todayFormatted = today.toISOString().split('T')[0];
+    endDateInput.value = todayFormatted;
+
+    // Set max date for both inputs to today
+    startDateInput.max = todayFormatted;
+    endDateInput.max = todayFormatted;
 
     const initialNin = generateNIN();
     ninDisplay.textContent = initialNin;
@@ -110,19 +112,19 @@ document.addEventListener('DOMContentLoaded', () => {
         themeSwitch.checked = prefersDark;
         applyTheme(prefersDark);
     }
-
-    // Set default start date (1971-12-16)
-    startDateInput.value = '1971-12-16';
-
-    // Set default end date (today)
-    const today = new Date();
-    const todayFormatted = today.toISOString().split('T')[0];
-    endDateInput.value = todayFormatted;
-
-    // Set max date for both inputs to today
-    startDateInput.max = todayFormatted;
-    endDateInput.max = todayFormatted;
 });
+
+
+const applyTheme = (isDark) => {
+    if (isDark) {
+        body.classList.remove('light-theme');
+        body.classList.add('dark-theme');
+    } else {
+        body.classList.remove('dark-theme');
+        body.classList.add('light-theme');
+    }
+};
+
 
 themeSwitch.addEventListener('change', () => {
     const isDark = themeSwitch.checked;
